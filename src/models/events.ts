@@ -18,8 +18,8 @@ export default class Events {
         return max;
     }
 
-    public addEvent(name: string, ops: Array<Opinion>, type: number, img: string) {
-        let event = new Event(this.getMaxId()+1, name, ops, type, img);
+    public addEvent(name: string, ops: Array<Opinion>, type: number, img: string, addable: boolean) {
+        let event = new Event(this.getMaxId()+1, name, ops, type, img, addable);
         this.event_list.push(event);
         this.update();
     }

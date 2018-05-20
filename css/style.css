@@ -16,3 +16,25 @@
     margin-left: 5em;
     margin-right: 5em;
 }
+
+.input-span {
+    position: relative;
+    top: -1.7em;
+    left: 11.2em;
+}
+
+.input-span:hover {
+    color: #FF4136;
+    cursor: pointer;
+}
+
+.input-type {
+    position: relative;
+    top: 1.5em;
+    left: -1.1em;
+}
+
+.opinion-div {
+    padding: 0px;
+    margin-bottom: -2em;
+}

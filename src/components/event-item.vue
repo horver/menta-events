@@ -1,7 +1,7 @@
 <template id="event-list-template">
     <article class="card">
         <header>
-            <h3>{{event.name}} - {{event.id}} - {{event.type}}</h3>
+            <h3>{{event.name}}</h3>
              <label @click="deleteEvent(event.id)" class="close">&times;</label>
         </header>
         <img :src="event.img">
