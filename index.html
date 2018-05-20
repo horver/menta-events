@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Menta Events</title>
+    <link rel="stylesheet" href="css/picnic.min.css">
+    <link rel="stylesheet" href="css/plugins.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="#" class="brand">
+            <span>Menta programok</span>
+        </a>
+
+        <input id="bmenub" type="checkbox" class="show">
+        <label for="bmenub" class="burger pseudo button">menu</label>
+        
+        <div class="menu">
+                <label for="modalNewEvent" class="button success icon-puzzle">Új esemény</label>
+                <div class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="app" class="content">
+            <div class="flex four">
+                <div v-for="event in events.event_list">
+                    <event-item v-bind:event=event v-bind:events=events></event-item>
+                </div>
+            </div>
+            
+            <new-event v-bind:events=events></new-event>
+            
+            <event v-bind:events=events></event>
+        </section>
+    </main>
+    
+    <script src="dist/bundle.js"></script>
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=173155849991325';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>
