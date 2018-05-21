@@ -5,10 +5,8 @@
     <title>Menta Events</title>
     <link rel="stylesheet" href="css/picnic.min.css">
     <link rel="stylesheet" href="css/plugins.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
     <link rel="stylesheet" href="css/style.css">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
 </head>
 <body>
     <nav>
@@ -20,16 +18,18 @@
         <label for="bmenub" class="burger pseudo button">menu</label>
         
         <div class="menu">
-                <label for="modalNewEvent" class="button success icon-puzzle">Új esemény</label>
-                <div class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                <label for="modalNewEvent" class="button success"><i class="material-icons">add_box</i> Új esemény</label>
         </div>
     </nav>
     
     <main>
         <section id="app" class="content">
-            <div class="flex four">
+            <div class="flex three">
                 <div v-for="event in events.event_list">
                     <event-item v-bind:event=event v-bind:events=events></event-item>
+                </div>
+                <div v-if="events.event_list.length == 0">
+                    Nincsenek események!
                 </div>
             </div>
             
@@ -39,14 +39,5 @@
     </main>
     
     <script src="dist/bundle.js"></script>
-
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=173155849991325';
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>

@@ -18,13 +18,13 @@ export default class Events {
         return max;
     }
 
-    public addEvent(name: string, ops: Array<Opinion>, type: number, img: string, addable: boolean) {
-        let event = new Event(this.getMaxId()+1, name, ops, type, img, addable);
+    public addEvent(name: string, ops: Array<Opinion>, type: number, img: string, addable: boolean, votes: number): void {
+        let event = new Event(this.getMaxId()+1, name, ops, type, img, addable, votes);
         this.event_list.push(event);
         this.update();
     }
     
-    public deleteEvent(id: number) {
+    public deleteEvent(id: number): void {
         let index: number = -1;
         this.event_list.some(function(el, i) {
             if (el.id == id) {
@@ -49,7 +49,7 @@ export default class Events {
             });
     }
     
-    private restSend(url: string) {
+    private restSend(url: string): void {
         fetch(url, {
               method: 'POST',
               headers: {
@@ -61,13 +61,22 @@ export default class Events {
     }
 
     public load(): void {
-       this.restReceive<Array<Event>>('backend/api/list-events.php')
+        this.event_list = [];
+        this.restReceive<Array<Event>>('backend/api/list-events.php')
             .then(respone_data => {
-                this.event_list = respone_data;
+                for (let ev of respone_data) {
+                    let ops = Array<Opinion>();
+                    for (let op of ev.ops) {
+                        ops.push(new Opinion(op.id, op.text, op.votes, op.voters));
+                    }
+                    let event = new Event(ev.id, ev.name, ops, ev.type, ev.img, ev.addable, ev.votes);
+                    this.event_list.push(event);
+                }
+                console.log('load finished');
             });
     }
 
-    public save() {
+    public save(): void {
         fetch('backend/api/save-events.php', {
             method: 'POST',
             headers: {
@@ -78,7 +87,7 @@ export default class Events {
       });
     }
 
-    public update() {
+    public update(): void {
         this.save();
         this.load();
     }
