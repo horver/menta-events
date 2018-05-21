@@ -17,10 +17,14 @@
     margin-right: 5em;
 }
 
+.opinion-div {
+    margin-bottom: -25px;
+}
+
 .input-span {
     position: relative;
     top: -1.8em;
-    left: 24.2em;
+    left: 25.2em;
 }
 
 .input-span:hover {

@@ -48,17 +48,6 @@ export default class Events {
                 return response.json();
             });
     }
-    
-    private restSend(url: string): void {
-        fetch(url, {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(this.event_list)
-        });
-    }
 
     public load(): void {
         this.event_list = [];

@@ -4,25 +4,15 @@
     <label for="modalNewEvent" class="overlay"></label>
     <article>
         <header>
-          <h3>Új esemény</h3>
-          <label for="modalNewEvent" class="close">&times;</label>
+          <input type="text" placeholder="Név" v-model="name">
         </header>
         <section class="modal-content">
-          <fieldset>
-            <input type="text" placeholder="Név" v-model="name">
-          </fieldset>
-          <h4>Választási lehetőségek</h4>
           <div v-for="(op, index) in ops" :key="index" class="opinion-div">
-              <span v-if="type">
-                <i class="material-icons small input-type">check_box</i>
-              </span>
-              <span v-else>
-                <i class="material-icons small input-type">radio_button_unchecked</i>
-              </span>
+              <i v-if="type" class="material-icons small input-type">check_box</i>
+              <i v-else class="material-icons small input-type">radio_button_unchecked</i>
               <input type="text" placeholder="Választási lehetőség..." v-model="op.text" @keyup="addOpinion(index)">
               <span class="input-span" @click="deleteOpinion(index)"><i class="material-icons">backspace</i></span>
           </div>
-          <h4>Opciók</h4>
           <fieldset>
             <label>
               <input type="checkbox" v-model="type">
@@ -36,7 +26,7 @@
         </section>
         <footer>
           <label for="modalNewEvent" class="button success" @click="createEvent"><i class="material-icons">save</i> Mentés</label>
-          <label for="modalNewEvent" class="button dangerous"><i class="material-icons">block</i> Mégse</label>
+          <label for="modalNewEvent" class="button dangerous" @click="closeModal"><i class="material-icons">block</i> Mégse</label>
         </footer>
     </article>
   </div>
@@ -75,6 +65,13 @@ export default class NewEventComponent extends Vue {
   deleteOpinion(index: number): void {
     if (index != this.ops.length-1)
       this.ops.splice(index, 1);
+  }
+
+  closeModal(): void {
+    this.name = '';
+    this.type = 0;
+    this.ops = [new Opinion(0, '', 0, [])];
+    this.addable = false;
   }
 }
 </script>

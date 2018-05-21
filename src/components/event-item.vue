@@ -2,8 +2,9 @@
     <article class="card event-list">
         <header>
             <h3 @click="onClick()" style="cursor: pointer">{{event.name}}</h3>
-            <label @click="deleteEvent(event.id)" class="close"><i class="material-icons">delete</i></label>
+            <label for="modalSecure"><i class="material-icons">delete</i></label>
         </header>
+        <secure-modal @delete_event="deleteEvent(event.id)"></secure-modal>
         <img :src="event.img" @click="onClick()" class="center">
         <footer v-if="showOpinions">
             <!-- List opinions either be checkbox or radio buttons -->
