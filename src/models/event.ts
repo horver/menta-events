@@ -13,8 +13,11 @@ export default class Event {
     img: string;
     addable: boolean;
     votes: number;
+    secure: boolean;
+    anonim: boolean;
 
-    constructor(id: number, name: string, ops: Array<Opinion>, type: OpinionType, img: string, addable: boolean, votes: number) {
+    constructor(id: number, name: string, ops: Array<Opinion>, type: OpinionType, img: string, 
+                addable: boolean, votes: number, secure: boolean, anonim: boolean) {
         this.id = id;
         this.name = name;
         this.ops = ops.sort((a, b) => { 
@@ -26,6 +29,8 @@ export default class Event {
         this.img = img;
         this.addable = addable;
         this.votes = votes;
+        this.secure = secure;
+        this.anonim = anonim;
     }
 
     public vote(checkedOps: Array<number>, voterName: string): void {

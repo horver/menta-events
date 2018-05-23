@@ -1,18 +1,21 @@
 <template id="secure-modal-template">
   <div class="modal">
-    <input id="modalSecure" type="checkbox" />
-    <label for="modalSecure" class="overlay"></label>
+    <input :id="'modalSecure'+id" type="checkbox" v-model="closed"/>
+    <label v-bind:for="'modalSecure'+id" class="overlay"></label>
     <article>
         <header>
-          Biztos törlöd?
+          <h3>Biztos törlöd?</h3>
+          <label v-bind:for="'modalSecure'+id" class="close">&times;</label>
         </header>
-        <section class="modal-content">
-          <i class="material-icons">lock</i>
-          <input type="password" placeholder="Jelszó" v-model="pass">
+        <section>
+          <error-box :errors="errors"></error-box>
+          <label v-if="this.secure">
+            <i class="material-icons input-type">lock</i>
+            <input type="password" placeholder="Jelszó" v-model="pass">
+          </label>
         </section>
         <footer>
-          <label for="modalSecure" @click="deleteEvent"><button class="button dangerous"><i class="material-icons">delete</i> Törlés</button></label>
-          <label for="modalSecure" class="button" ><i class="material-icons">block</i> Mégse</label>
+          <label v-bind:for="'modalSecure'+id" @click="deleteEvent"><button class="button dangerous"><i class="material-icons">delete</i> Törlés</button></label>
         </footer>
     </article>
   </div>
@@ -22,13 +25,19 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
+import { EventBus } from '../event-bus';
+
 @Component({
+  props: ['id', 'secure']
 })
 export default class SecureModalComponent extends Vue {
   pass: string = '';
+  closed: boolean = false;
+  errors: Array<string> = [];
 
   deleteEvent(): void {
-    fetch('backend/api/secure.php', {
+    if (this.$props['secure']) {
+      fetch('backend/api/secure.php', {
             method: 'POST',
             headers: {},
             body: this.pass
@@ -37,11 +46,21 @@ export default class SecureModalComponent extends Vue {
         return respone.json()
       })
       .then(data => {
+        this.errors = [];
         if (data.success) {
           this.$emit('delete_event');
-          console.log('emitted');
+          this.closed = false;
+          EventBus.$emit('toastMsg', 'Esemény törölve!');
+        } else {
+          this.errors.push('Jelszó nem megfelelő!');
         }
       });
+    } else {
+      this.$emit('delete_event');
+      this.closed = false;
+      EventBus.$emit('toastMsg', 'Esemény törölve!');
+    }
+    
   }
 }
 </script>

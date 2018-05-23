@@ -10,7 +10,8 @@
 </head>
 <body>
     <nav>
-        <a href="#" class="brand">
+        <a href="index.php" class="brand">
+            <img class="logo" src="data/images/logo.png" />
             <span>Menta programok</span>
         </a>
 
@@ -18,22 +19,15 @@
         <label for="bmenub" class="burger pseudo button">menu</label>
         
         <div class="menu">
-                <label for="modalNewEvent" class="button success"><i class="material-icons">add_box</i> Új esemény</label>
+            <label for="modalNewEvent" class="button success"><i class="material-icons">add_box</i> Új esemény</label>
         </div>
     </nav>
     
     <main>
         <section id="app" class="content">
-            <div class="flex three">
-                <div v-for="event in events.event_list">
-                    <event-item v-bind:event=event v-bind:events=events></event-item>
-                </div>
-                <div v-if="events.event_list.length == 0">
-                    Nincsenek események!
-                </div>
-            </div>
-            
+            <event-list v-bind:events=events></event-list>            
             <new-event v-bind:events=events></new-event>
+            <toast></toast>
         </section>
     </main>
     
